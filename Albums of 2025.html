@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2025 Albums of the Year</title>
+  <style>
+
+@keyframes backgroundColorShift {
+  0%, 100% {
+    background-color: #06402B; /* dark green */
+  }
+  50% {
+    background-color: #650303; /* dark red */
+  }
+}
+body {
+  font-size: 16px;
+  font-family: "Avenir Next Cyr Thin", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  margin: 0;
+  padding: 0 20px;
+  background-color: #255;
+  animation: backgroundColorShift 10s ease-in-out infinite alternate;
+  color: #eee;
+}
+
+.site-title {
+  text-align: center;
+  font-size: 40px;
+  margin: 0 0 20px 0;
+  font-weight: bold;
+  font-style: normal;
+}
+
+main ol {
+  list-style-type: none;
+  list-style-position: outside;
+  counter-reset: album-counter;
+  padding-left: 0;
+  margin: auto;
+  max-width: 1000px;
+}
+
+main ol > li {
+  counter-increment: album-counter;
+  position: relative;
+  padding-left: 40px; 
+}
+
+main ol > li::before {
+  content: counter(album-counter) ".";
+  position: absolute;
+  left: 10px;
+  top: -0px; /* adjust vertical positioning here */
+  font-size: 14px;
+  color: #ccc;
+  font-weight: initial;
+}
+
+ol > li:last-child .album {
+  height: 146px;
+}
+
+header h1:not(.site-title) {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 5px;
+  font-style: normal;
+  font-weight: 300;
+}
+
+footer {
+  text-align: center;
+  margin: 60px 0 40px;
+  font-style: italic;
+  font-weight: 300;
+  color: #ccc;
+}
+
+nav {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+.nav-links { /* LINK TO OTHER YEARS SETTINGS */
+  list-style-type: none;  /* remove bullet points */
+  padding-left: 0;        /* remove left padding */
+  margin-left: 0;         /* remove left margin if any */
+}
+.nav-links a { /* LINK TO OTHER YEARS SETTINGS */
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 0px;
+  font-style: normal;
+  font-weight: 300;
+}
+
+nav a {
+  display: block;
+  font-size: 16px;
+  text-decoration: none;
+  margin: 5px 0;
+  color: #ccc;
+  font-style: italic;
+  font-weight: 300;
+}
+
+main h1 {
+  text-align: center;
+  margin-top: -60px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-style: oblique;
+  font-weight: 300;
+}
+
+main ol {
+  padding-left: 0;
+  max-width: 900px; /* make the boxes wider without messing up the 'ol' auto-numbering */
+  margin: auto;
+  position: relative;
+}
+
+.album { /* ALBUM BOX SETTINGS */
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: -55px;
+  padding: 12px 20px;
+  border-top: 1px solid #242424; /* thickness and colour of box's top border */
+  border-bottom: 1px solid #444; /* thickness and colour of box's bottom border */
+  gap: 24px; /* gap between the album cover and the text to the right of it */
+  height: 100px; /* the height of the unhovered box */
+  overflow: hidden; /* hides the text that overflows the box */
+  cursor: pointer; /* changes the cursor when hovering over the album box */
+  position: relative;
+  background-color: #111; /* changes the colour of the unhovered box */
+  border-radius: 8px; /* rounds the box corners for a soft vignette effect */
+  z-index: 1;
+  width: 100%; /* the width of the album container box */
+  margin-left: 0%; /* offset of the album container box to make it centered */
+  box-sizing: border-box;
+  transition: 
+    height 1s ease, /* how low it takes for the hovered box to expand */
+    margin-bottom 1s ease, /* how quickly the boxes beneath move out of the when the hovered box is expanded */
+    background-color 2s ease; /* how long it takes to reach the new colour when hovered */
+}
+
+.album:last-child:hover { /* HOVERED ALBUM BOX SETTINGS */
+  height: 146px; /* the height of the hovered box */
+  margin-bottom: 10px; /* how much space is left from the bottom of the hovered box until the next box */
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.223); /* changes the size and colour of the hovered box's shadow */
+  border: 1px solid #ccc; /* changes the thickness and colour of the hovered box's border */
+  background-color: #333; /* changes the colour of the hovered box */
+}
+
+.album-cover { /* ALBUM IMAGE POSITIONING IN THE BOX */
+  position: relative;
+}
+.album img { /* ALBUM IMAGE SETTINGS */
+  width: 120px; /* sets the image's horizontal size */
+  height: 120px; /* sets the image's vertical size */
+  border-radius: 12px; /* rounds the corners for a soft vignette effect */
+  transition: /* smoothly animates size/transform changes */
+    width 0.4s ease,
+    height 0.4s ease,
+    transform 0.4s ease;
+  flex-shrink: 0; /* prevents the image from shrinking in flex box */
+}
+.album:hover img { /* HOVERED ALBUM IMAGE SETTINGS */
+  transform: scale(1.1); /* scale by which the image enlarges when hovered */
+}
+
+.album-rating {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: bold;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.album-text {
+  flex-grow: 1;
+  font-style: italic;
+  font-weight: 300;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px; /* change the size of unhovered text in the album box */
+  user-select: none;
+  line-height: 1;
+  transition: all 0.4s ease;
+}
+
+.album:hover .album-text {
+  white-space: normal;
+  font-size: 18px; /* change the size of hovered text in the album box*/
+  line-height: 1;
+  transform: translateX(10px);
+  text-overflow: unset;
+}
+
+.album-text h3 {
+  margin: 0 0 14px 0;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+<!-- TOOLS FOR THE CLICKABLE COMMENT BOX -->
+/* .modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal-content {
+  background: #111;
+  padding: 20px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+}
+.modal-close:hover {
+  color: #fff;
+} */
+
+</style></head><body>
+
+<header><h1 class="site-title">In Authority</h1>
+<nav><ul class="nav-links">
+  <li><a href="../Home.html">Home</a></a></li>
+  <li><a href="Albums of 2024.html">Previous Year</a></a></li>
+	<li><a href="Albums of 2026.html">Next Year</a></a></li>
+</ul></nav></header>
+    
+<main>
+<h1>2025: Albums of the Year</h1>
+<ol>
+
+<!-- ALBUM LIST STARTS HERE -->
+
+<li><div class="album"><div class="album-rating">6¾</div>
+  <div class="album-cover"><img src="Images/2025/Clipse2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>Clipse</h3>
+    <h3>Let God Sort Em Out</h3>
+    <h3>6¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6½</div>
+  <div class="album-cover"><img src="Images/2025/Swans2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>Swans</h3>
+    <h3>Birthing</h3>
+    <h3>6½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6¼</div>
+  <div class="album-cover"><img src="Images/2025/JimLegxacy2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>Jim Legxacy</h3>
+    <h3>Black British Music (2025)</h3>
+    <h3>6¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6</div>
+  <div class="album-cover"><img src="Images/2025/JaneRemover2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Jane Remover</h3>
+    <h3>Revengeseekerz</h3>
+    <h3>6</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6</div>
+  <div class="album-cover"><img src="Images/2025/ModelActriz2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>Model/Actriz</h3>
+    <h3>Pirouette</h3>
+    <h3>6</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6</div>
+  <div class="album-cover"><img src="Images/2025/Caroline2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>Caroline</h3>
+    <h3>Caroline 2</h3>
+    <h3>6</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">6</div>
+  <div class="album-cover"><img src="Images/2025/McKinleyDixon2025.jpg" alt="" /></div></a><div class="album-text">
+    <h3>McKinley Dixon</h3>
+    <h3>Magic, Alive!</h3>
+    <h3>6</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5¾</div>
+  <div class="album-cover"><img src="Images/2025/BillyWoods2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Billy Woods</h3>
+    <h3>Golliwog</h3>
+    <h3>5¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5¾</div>
+  <div class="album-cover"><img src="Images/2025/SamFender2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sam Fender</h3>
+    <h3>People Watching</h3>
+    <h3>5¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5½</div>
+  <div class="album-cover"><img src="Images/2025/Clipping2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Clipping</h3>
+    <h3>Dead Channel Sky</h3>
+    <h3>5½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5½</div>
+  <div class="album-cover"><img src="Images/2025/JustinBieber2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Justin Bieber</h3>
+    <h3>Swag</h3>
+    <h3>5½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5¼</div>
+  <div class="album-cover"><img src="Images/2025/Squid2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Squid</h3>
+    <h3>Cowards</h3>
+    <h3>5¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5¼</div>
+  <div class="album-cover"><img src="Images/2025/PinkSiifu2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Pink Siifu</h3>
+    <h3>Black'!Antique</h3>
+    <h3>5</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5</div>
+  <div class="album-cover"><img src="Images/2025/Skrillex2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Skrillex</h3>
+    <h3>F*ck U Skrillex You Think Ur Andy Warhol But Ur Not!! &lt;3</h3>
+    <h3>5</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5</div>
+  <div class="album-cover"><img src="Images/2025/Backxwash2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Backxwash</h3>
+    <h3>Only Dust Remains</h3>
+    <h3>5</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5</div>
+  <div class="album-cover"><img src="Images/2025/PerfumeGenius2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Perfume Genius</h3>
+    <h3>Glory</h3>
+    <h3>5</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">5</div>
+  <div class="album-cover"><img src="Images/2025/FKATwigs2025.jpg" alt="" /></div><div class="album-text">
+    <h3>FKA Twigs</h3>
+    <h3>Eusexua</h3>
+    <h3>5</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¾</div>
+  <div class="album-cover"><img src="Images/2025/Mike2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Mike</h3>
+    <h3>Showbiz!</h3>
+    <h3>4¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¾</div>
+  <div class="album-cover"><img src="Images/2025/TylerTheCreator2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tyler, the Creator</h3>
+    <h3>Don't Tap the Glass</h3>
+    <h3>4¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¾</div>
+  <div class="album-cover"><img src="Images/2025/LittleSimz2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Little Simz</h3>
+    <h3>Lotus</h3>
+    <h3>4¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¾</div>
+  <div class="album-cover"><img src="Images/2025/JohnMichelAnthonyJames2025.jpg" alt="" /></div><div class="album-text">
+    <h3>John Michel / Anthony James</h3>
+    <h3>Egotrip</h3>
+    <h3>4¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/Bruit2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bruit</h3>
+    <h3>The Age of Ephemerality</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/Thornhill2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Thornhill</h3>
+    <h3>Bodies</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/KaliUchis2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kali Uchis</h3>
+    <h3>Sincerely</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/Destroyer2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Destroyer</h3>
+    <h3>Dan's Boogie</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/RoseGray2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Rose Gray</h3>
+    <h3>Louder, Please</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/LosThuthanaka2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Los Thuthanaka</h3>
+    <h3>Los Thuthanaka</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/Lorde2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lorde</h3>
+    <h3>Virgin</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4½</div>
+  <div class="album-cover"><img src="Images/2025/IsabellaLovestory2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Isabella Lovestory</h3>
+    <h3>Vanity</h3>
+    <h3>4½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/Smerz2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Smerz</h3>
+    <h3>Big City Life</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/Turnstile2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Turnstile</h3>
+    <h3>Never Enough</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/IchikoAoba2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ichiko Aoba</h3>
+    <h3>Luminescent Creatures</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/AlanSparhawk2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Alan Sparhawk / Trampled by Turtles</h3>
+    <h3>Alan Sparhawk with Trampled by Turtles</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/Darkside2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Darkside</h3>
+    <h3>Nothing</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/AlexG2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Alex G</h3>
+    <h3>Headlights</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/ImperialTriumphant2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Imperial Triumphant</h3>
+    <h3>Goldstar</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4¼</div>
+  <div class="album-cover"><img src="Images/2025/Deafheaven2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Deafheaven</h3>
+    <h3>Lonely People With Power</h3>
+    <h3>4¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/BadBunny2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bad Bunny</h3>
+    <h3>Debí Tirar Más Fotos</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/EthelCain2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ethel Cain</h3>
+    <h3>Perverts</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/Betcover2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Betcover!!</h3>
+    <h3>Yuki</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/NiluferYanya2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Nilüfer Yanya</h3>
+    <h3>Dancing Shoes</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/BonIver2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bon Iver</h3>
+    <h3>Sable, Fable</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/RichardDawson2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Richard Dawson</h3>
+    <h3>End of the Middle</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/YT2025.jpg" alt="" /></div><div class="album-text">
+    <h3>YT</h3>
+    <h3>Oi!</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/AJTracey2025.jpg" alt="" /></div><div class="album-text">
+    <h3>AJ Tracey</h3>
+    <h3>Don’t Die Before You’re Dead</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/TheseNewPuritans2025.jpg" alt="" /></div><div class="album-text">
+    <h3>These New Puritans</h3>
+    <h3>Crooked Wing</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/ErikaDeCasier2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Erika de Casier</h3>
+    <h3>Lifetime</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/YayaBey2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Yaya Bey</h3>
+    <h3>Do It Afraid</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/JohnGlacier2025.jpg" alt="" /></div><div class="album-text">
+    <h3>John Glacier</h3>
+    <h3>Like a Ribbon</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/Bambara2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bambara</h3>
+    <h3>Birthmarks</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/Surgeon2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Surgeon</h3>
+    <h3>Shell~wave</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/AddisonRae2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Addison Rae</h3>
+    <h3>Addison</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">4</div>
+  <div class="album-cover"><img src="Images/2025/Gwenno2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Gwenno</h3>
+    <h3>Utopia</h3>
+    <h3>4</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/TwoShell2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Two Shell</h3>
+    <h3>IIcons</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/ElaMinus2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ela Minus</h3>
+    <h3>Día</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/TateMcRae2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tate McRae</h3>
+    <h3>So Close to What</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/TheHorrors2025.jpg" alt="" /></div><div class="album-text">
+    <h3>The Horrors</h3>
+    <h3>Night Life</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/KathrynMohr2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kathryn Mohr</h3>
+    <h3>Waiting Room</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/Maruja2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Maruja</h3>
+    <h3>Tír na nÓg</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/YHWHNailgun2025.jpg" alt="" /></div><div class="album-text">
+    <h3>YHWH Nailgun</h3>
+    <h3>45 Pounds</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/Shura2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Shura</h3>
+    <h3>I Got Too Sad for My Friends</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/JuicyJ2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Juicy J / Logic</h3>
+    <h3>Live and in Color</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/CircuitDesYeux2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Circuit des Yeux</h3>
+    <h3>Halo on the Inside</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/Spellling2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Spellling</h3>
+    <h3>Portrait of My Heart</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/BlackCountryNewRoad2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Black Country, New Road</h3>
+    <h3>Forever Howlong</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/Stereolab2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Stereolab</h3>
+    <h3>Instant Holograms on Metal Film</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/MSPaint2025.jpg" alt="" /></div><div class="album-text">
+    <h3>MSPaint</h3>
+    <h3>No Separation</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/TheWeatherStation2025.jpg" alt="" /></div><div class="album-text">
+    <h3>The Weather Station</h3>
+    <h3>Humanhood</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/LadyGaga2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lady Gaga</h3>
+    <h3>Mayhem</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/Baths2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Baths</h3>
+    <h3>Gut</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/TheWeeknd2025.jpg" alt="" /></div><div class="album-text">
+    <h3>The Weeknd</h3>
+    <h3>Hurry Up Tomorrow</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/HotlineTNT2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Hotline TNT</h3>
+    <h3>Raspberry Moon</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¾</div>
+  <div class="album-cover"><img src="Images/2025/JennyHval2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Jenny Hval</h3>
+    <h3>Iris Silver Mist</h3>
+    <h3>3¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/GhaisGuevara2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ghais Guevara</h3>
+    <h3>Goyard Ibn Said</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/PinkPantheress2025.jpg" alt="" /></div><div class="album-text">
+    <h3>PinkPantheress</h3>
+    <h3>Fancy That</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Shearling2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Shearling</h3>
+    <h3>Motherfucker, I Am Both: "Amen" and "Hallelujah"...</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/TheCallousDaoboys2025.jpg" alt="" /></div><div class="album-text">
+    <h3>The Callous Daoboys</h3>
+    <h3>I Don't Want to See You in Heaven</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Spiritbox2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Spiritbox</h3>
+    <h3>Tsunami Sea</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/LoyleCarner2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Loyle Carner</h3>
+    <h3>Hopefully !</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Honningbarna2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Honningbarna</h3>
+    <h3>Soft Spot</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/SharonVanEtten2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sharon Van Etten & The Attachment Theory</h3>
+    <h3>Sharon Van Etten & The Attachment Theory</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/SallyShapiro2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sally Shapiro</h3>
+    <h3>Ready to Live a Lie</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/LarryJune2025-2.jpg" alt="" /></div><div class="album-text">
+    <h3>Larry June / Cardo</h3>
+    <h3>Until Night Comes</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/AesopRock2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Aesop Rock</h3>
+    <h3>Black Hole Superette</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/LonnieHolley2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lonnie Holley</h3>
+    <h3>Tonky</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Saba2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Saba / No I.D.</h3>
+    <h3>From the Private Collection of Saba and No ID</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/BenjaminBooker2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Benjamin Booker</h3>
+    <h3>Lower</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Acloudyskye2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Acloudyskye</h3>
+    <h3>This Won't Be the Last Time</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3½</div>
+  <div class="album-cover"><img src="Images/2025/Jackboys2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Jackboys</h3>
+    <h3>Jackboys 2</h3>
+    <h3>3½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/WhateverTheWeather2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Whatever the Weather</h3>
+    <h3>Whatever the Weather II</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/RealLies2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Real Lies</h3>
+    <h3>We Will Annihilate Our Enemies</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/MenITrust2025-2.jpg" alt="" /></div><div class="album-text">
+    <h3>Men I Trust</h3>
+    <h3>Equus Caballus</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/Kai2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kai</h3>
+    <h3>Wait On Me</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/WetLeg2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Wet Leg</h3>
+    <h3>Moisturizer</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/Pulp2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Pulp</h3>
+    <h3>More</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/MaddieJay2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Maddie Jay</h3>
+    <h3>I Can Change Your Mind</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/HesseKassel2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Hesse Kassel</h3>
+    <h3>La Brea</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/Kesha2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kesha</h3>
+    <h3>.</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/Oklou2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Oklou</h3>
+    <h3>Choke Enough</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/LyraPramuk2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lyra Pramuk</h3>
+    <h3>Hymnal</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/EzraFurman2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ezra Furman</h3>
+    <h3>Goodbye Small Head</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/MacMiller2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Mac Miller</h3>
+    <h3>Balloonerism</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3¼</div>
+  <div class="album-cover"><img src="Images/2025/Pissgrave2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Pissgrave</h3>
+    <h3>Malignant Worthlessness</h3>
+    <h3>3¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/DeanBlunt2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Dean Blunt / Elias Rønnenfelt</h3>
+    <h3>Lucre</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/PatrickWolf2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Patrick Wolf</h3>
+    <h3>Crying the Neck</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/KiloKish2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kilo Kish</h3>
+    <h3>Negotiations</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Aya2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Aya</h3>
+    <h3>Hexed!</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/BiigPiig2025.jpg" alt="=" /></div><div class="album-text">
+    <h3>Biig Piig</h3>
+    <h3>11:11</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/TuneYards2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tune-Yards</h3>
+    <h3>Better Dreaming</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Tamino2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tamino</h3>
+    <h3>Every Dawn's a Mountain</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Bassvictim2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bassvictim</h3>
+    <h3>Basspunk 2</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Ghost2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ghost</h3>
+    <h3>Skeleta</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Yungblud2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Yungblud</h3>
+    <h3>Idols</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/MarieDavidson2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Marie Davidson</h3>
+    <h3>City of Clowns</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/PandaBear2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Panda Bear</h3>
+    <h3>Sinister Grift</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/ArcadeFire2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Arcade Fire</h3>
+    <h3>Pink Elephant</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/ParisTexas2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Paris Texas</h3>
+    <h3>They Left Me With the Sword</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Nuvolascura2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Nuvolascura</h3>
+    <h3>How This All Ends</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/KahlilBlu2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kahlil Blu</h3>
+    <h3>Mr Nice Guy</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Venturing2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Venturing</h3>
+    <h3>Ghostholding</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/IreneSeulgi2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Irene & Seulgi</h3>
+    <h3>Tilt</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/MattMaltese2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Matt Maltese</h3>
+    <h3>Hers</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/TheMurderCapital2025.jpg" alt="" /></div><div class="album-text">
+    <h3>The Murder Capital</h3>
+    <h3>Blindness</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/TropicalFuckStorm2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tropical Fuck Storm</h3>
+    <h3>Fairyland Codex</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/FullOfHell2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Full of Hell</h3>
+    <h3>Broken Sword, Rotten Shield</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/JefreCantuLedesma2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Jefre Cantu-Ledesma</h3>
+    <h3>Gift Songs</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/F5ve2025.jpg" alt="" /></div><div class="album-text">
+    <h3>F5ve</h3>
+    <h3>Sequence 01</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/AsianGlow2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Asian Glow</h3>
+    <h3>11100011</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Huremic2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Huremic</h3>
+    <h3>Seeking Darkness</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/CarSeatHeadrest2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Car Seat Headrest</h3>
+    <h3>The Scholars</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/RivalConsoles2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Rival Consoles</h3>
+    <h3>Landscape From Memory</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">3</div>
+  <div class="album-cover"><img src="Images/2025/Horsegirl2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Horsegirl</h3>
+    <h3>Phonetics On and On</h3>
+    <h3>3</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/LeSserafim2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Le Sserafim</h3>
+    <h3>Hot</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Sextile2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sextile</h3>
+    <h3>Yes, Please</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Xzibit2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Xzibit</h3>
+    <h3>Kingmaker</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Haim2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Haim</h3>
+    <h3>I Quit</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/MenITrust2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Men I Trust</h3>
+    <h3>Equus Asinus</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/SunKilMoon2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sun Kil Moon</h3>
+    <h3>All the Artists</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/MattBerninger2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Matt Berninger</h3>
+    <h3>Get Sunk</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/StevenWilson2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Steven Wilson</h3>
+    <h3>The Overview</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Luacollider2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Luacollider</h3>
+    <h3>Sunbelt Princess</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Mallrat2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Mallrat</h3>
+    <h3>Light Hit My Face Like a Straight Right</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Turquoisedeath2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Turquoisedeath</h3>
+    <h3>Guardian</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Weed4202025.jpg" alt="" /></div><div class="album-text">
+    <h3>Weed420</h3>
+    <h3>Amor de Encava</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Amaia2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Amaia</h3>
+    <h3>Si Abro los Ojos No Es Real</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Heartworms2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Heartworms</h3>
+    <h3>Glutton for Punishment</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Angelou2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Angelou</h3>
+    <h3>Rodeo</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/MCVirgins2025.jpg" alt="" /></div><div class="album-text">
+    <h3>MC Virgins</h3>
+    <h3>After the Party</h3>
+    <h3>2¾</h3>
+  </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/StratfordRise2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Stratford Rise</h3>
+    <h3>Stratford Rise</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/BenFrost2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ben Frost</h3>
+    <h3>Under Certain Light and Atmospheric Conditions</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/DavidLongstreth2025.jpg" alt="" /></div><div class="album-text">
+    <h3>David Longstreth</h3>
+    <h3>Song of the Earth</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Maxo2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Maxo</h3>
+    <h3>Mars Is Electric</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Coclea2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Cóclea / Canut de Bon</h3>
+    <h3>No Esperan por Nadie</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/BlackMothSuperRainbow2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Black Moth Super Rainbow</h3>
+    <h3>Soft New Magic Dream</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Lindstrom2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lindstrøm</h3>
+    <h3>Sirius Syntoms</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Messa2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Messa</h3>
+    <h3>The Spin</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/CheNoir2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Che Noir</h3>
+    <h3>The Color Chocolate 2</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/LarryJune2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Larry June / 2 Chainz / The Alchemist</h3>
+    <h3>Life Is Beautiful</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/SnoopDogg2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Snoop Dogg</h3>
+    <h3>Iz It a Crime?</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/CDuncan2025.jpg" alt="" /></div><div class="album-text">
+    <h3>C Duncan</h3>
+    <h3>It's Only a Love Song</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/ViagraBoys2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Viagra Boys</h3>
+    <h3>Viagr Aboys</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Yeule2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Yeule</h3>
+    <h3>Evangelic Girl Is a Gun</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Tennis2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tennis</h3>
+    <h3>Face Down in the Garden</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¾</div>
+  <div class="album-cover"><img src="Images/2025/Nao2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Nao</h3>
+    <h3>Jupiter</h3>
+    <h3>2¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/YoungKnives2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Young Knives</h3>
+    <h3>Landfill</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/JoeJonas2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Joe Jonas</h3>
+    <h3>Music for People Who Believe in Love</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/PeterDoherty2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Peter Doherty</h3>
+    <h3>Felt Better Alive</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Panchiko2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Panchiko</h3>
+    <h3>Ginkgo</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/ToriAmos2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Tori Amos</h3>
+    <h3>The Music of Tori and the Muses</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/SlickRick2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Slick Rick</h3>
+    <h3>Victory</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/LawrenceEnglish2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lawrence English</h3>
+    <h3>Even the Horizon Knows Its Bounds</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/BarteesStrange2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bartees Strange</h3>
+    <h3>Horror</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/SleepToken2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sleep Token</h3>
+    <h3>Even in Arcadia</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/LowRoar2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Low Roar</h3>
+    <h3>House in the Woods</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Divorce2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Divorce</h3>
+    <h3>Drive to Goldenhammer</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Sainte2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Sainté</h3>
+    <h3>4L</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/BillieMarten2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Billie Marten</h3>
+    <h3>Dog Eared</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/MiyaFolick2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Miya Folick</h3>
+    <h3>Erotica Veronica</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/MattBerry2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Matt Berry</h3>
+    <h3>Heard Noises</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/MaribouState2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Maribou State</h3>
+    <h3>Hallucinating Love</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/JamesMarriott2025.jpg" alt="" /></div><div class="album-text">
+    <h3>James Marriott</h3>
+    <h3>Don't Tell the Dog</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/BoldyJames2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Boldy James</h3>
+    <h3>Permanent Ink</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/SayaGray2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Saya Gray</h3>
+    <h3>Saya</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Che2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Che</h3>
+    <h3>Rest in Bass</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/StomachBook2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Stomach Book</h3>
+    <h3>Goodnight Hypnopomp</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/KissOfLife2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Kiss of Life</h3>
+    <h3>224</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Vegyn2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Air / Vegyn</h3>
+    <h3>Blue Moon Safari</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/JapaneseBreakfast2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Japanese Breakfast</h3>
+    <h3>For Melancholy Brunettes (& Sad Women)</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2½</div>
+  <div class="album-cover"><img src="Images/2025/Benefits2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Benefits</h3>
+    <h3>Constant Noise</h3>
+    <h3>2½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/KenCarson2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ken Carson</h3>
+    <h3>More Chaos</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/BuryTomorrow2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Bury Tomorrow</h3>
+    <h3>Will You Haunt Me, With That Same Patience</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Shygirl2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Shygirl</h3>
+    <h3>Club Shy Room 2</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/AntonySzmierek2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Antony Szmierek</h3>
+    <h3>Service Station at the End of the Universe</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/YouthLagoon2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Youth Lagoon</h3>
+    <h3>Rarely Do I Dream</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Amine2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Aminé</h3>
+    <h3>13 Months of Sunshine</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Effie2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Effie</h3>
+    <h3>E</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/RicoNasty2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Rico Nasty</h3>
+    <h3>Lethal</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/RizzleKicks2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Rizzle Kicks</h3>
+    <h3>Competition Is for Losers</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/BigSpecial2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Big Special</h3>
+    <h3>National Average</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/RebeccaBlack2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Rebecca Black</h3>
+    <h3>Salvation</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/SoloAnsamblis2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Solo Ansamblis</h3>
+    <h3>Scenos</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/LucioCorsi2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Lucio Corsi</h3>
+    <h3>Volevo Essere un Duro</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Illit2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Illit</h3>
+    <h3>Bomb</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Whitechapel2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Whitechapel</h3>
+    <h3>Hymns in Dissonance</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/WestsideGunn2025-2.jpg" alt="" /></div><div class="album-text">
+    <h3>Westside Gunn</h3>
+    <h3>Heels Have Eyes</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Currensy2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Curren$y / Harry Fraud</h3>
+    <h3>Never Catch Us</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Ten2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Ten</h3>
+    <h3>Stunner</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/Artms2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Artms</h3>
+    <h3>Club Icarus</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/YouthCode2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Youth Code</h3>
+    <h3>Yours, With Malice</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/WestsideGunn2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Westside Gunn</h3>
+    <h3>12</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2¼</div>
+  <div class="album-cover"><img src="Images/2025/BasiaBulat2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Basia Bulat</h3>
+    <h3>Basia's Palace</h3>
+    <h3>2¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/ManicStreetPreachers2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Manic Street Preachers</h3>
+    <h3>Critical Thinking</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/PlayboiCarti2025.jpg" alt="" /></div><div class="album-text">
+    <h3>Playboi Carti</h3>
+    <h3>Music</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/MarkPritchard2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mark Pritchard / Thom Yorke</h3>
+    <h3>Tall Tales</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Doves2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Doves</h3>
+    <h3>Constellations for the Lonely</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Onew2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Onew</h3>
+    <h3>Connection</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Baekhyun2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Baekhyun</h3>
+    <h3>Essence of Reverie</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/CocoRosie2025.jpg" alt=""/></div><div class="album-text">
+    <h3>CocoRosie</h3>
+    <h3>Little Death Wishes</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/CradleOfFilth2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Cradle of Filth</h3>
+    <h3>The Screaming of the Valkyries</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/CarolineRose2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Caroline Rose</h3>
+    <h3>Year of the Slug</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/VictoriaCanal2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Victoria Canal</h3>
+    <h3>Slowly, It Dawns</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Riize2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Riize</h3>
+    <h3>Odyssey</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Chuu2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Chuu</h3>
+    <h3>Only Cry in the Rain</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/MileyCyrus2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Miley Cyrus</h3>
+    <h3>Something Beautiful</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Djo2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Djo</h3>
+    <h3>The Crux</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Louise2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Louise</h3>
+    <h3>Confessions</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/MatildaMann2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Matilda Mann</h3>
+    <h3>Roxwell</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Morcheeba2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Morcheeba</h3>
+    <h3>Escape the Chaos</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/KarolG2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Karol G</h3>
+    <h3>Tropicoqueta</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/TripleS2025.jpg" alt=""/></div><div class="album-text">
+    <h3>TripleS</h3>
+    <h3>Assemble25</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Cynthoni2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Cynthoni</h3>
+    <h3>Draining Love Story (In the Eyes of Cynthoni)</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/TurinBrakes2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Turin Brakes</h3>
+    <h3>Spacehopper</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Twice2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Twice</h3>
+    <h3>This If For</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/ZeroBaseOne2025.jpg" alt=""/></div><div class="album-text">
+    <h3>ZeroBaseOne</h3>
+    <h3>Blue Paradise</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/LilTecca2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Tecca</h3>
+    <h3>Dopamine</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/SleighBells2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Sleigh Bells</h3>
+    <h3>Bunky Becky Birthday Boy</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/NineVicious2025-2.jpg" alt=""/></div><div class="album-text">
+    <h3>Nine Vicious</h3>
+    <h3>For Nothing</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/FrankieCosmos2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Frankie Cosmos</h3>
+    <h3>Different Talking</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Ifeye2025-2.jpg" alt=""/></div><div class="album-text">
+    <h3>Ifeye</h3>
+    <h3>Sweet Tang</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/AmeliaBarratt2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Amelia Barratt / Bryan Ferry</h3>
+    <h3>Loose Talk</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/LouisDunford2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Louis Dunford</h3>
+    <h3>Be Lucky</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/LazerDim7002025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lazer Dim 700</h3>
+    <h3>Sins Aloud</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/PierreBourne2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Pi'erre Bourne</h3>
+    <h3>Made in Paris</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Banks2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Banks</h3>
+    <h3>Off With Her Head</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Cheekface2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Cheekface</h3>
+    <h3>Middle Spoon</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/Sodom2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Sodom</h3>
+    <h3>The Arsonist</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">2</div>
+  <div class="album-cover"><img src="Images/2025/MumfordAndSons2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mumford & Sons</h3>
+    <h3>Rushmere</h3>
+    <h3>2</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/PunkRockFactory2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Punk Rock Factory</h3>
+    <h3>All Hands on Deck</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/LilShine2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Shine</h3>
+    <h3>Shine Forever</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Seulgi2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Seulgi</h3>
+    <h3>Accidentally on Purpose</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/MyMorningJacket2025.jpg" alt=""/></div><div class="album-text">
+    <h3>My Morning Jacket</h3>
+    <h3>Is</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/NardoWick2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Nardo Wick</h3>
+    <h3>Wick</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/DJGurl2025.jpg" alt=""/></div><div class="album-text">
+    <h3>DJ Gurl</h3>
+    <h3>Head 7</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Ekkstacy2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ekstacy</h3>
+    <h3>Forever</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/2hollis2025.jpg" alt=""/></div><div class="album-text">
+    <h3>2hollis</h3>
+    <h3>Star</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Marina2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Marina</h3>
+    <h3>Princess of Power</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/IDle2025.jpg" alt=""/></div><div class="album-text">
+    <h3>I-dle</h3>
+    <h3>We Are</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/JadeBird2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jade Bird</h3>
+    <h3>Who Wants to Talk About Love?</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/DavidGray2025.jpg" alt=""/></div><div class="album-text">
+    <h3>David Gray</h3>
+    <h3>Dear Life</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Aitch2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Aitch</h3>
+    <h3>4</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/LidoPimienta2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lido Pimienta</h3>
+    <h3>La Belleza</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Pup2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Pup</h3>
+    <h3>Who Will Look After the Dogs?</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/NCTDream2025.jpg" alt=""/></div><div class="album-text">
+    <h3>NCT Dream</h3>
+    <h3>Go Back to the Future</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/SportsTeam2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Sports Team</h3>
+    <h3>Boys These Days</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/LucyDacus2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lucy Dacus</h3>
+    <h3>Forever Is a Feeling</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/FoodHouse2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Food House</h3>
+    <h3>Two House</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/MyssKeta2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Myss Keta</h3>
+    <h3>.</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Minnie2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Minnie</h3>
+    <h3>Her</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/EdwardSkeletrix2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Edward Skeletrix</h3>
+    <h3>Museum Music</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Mo2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mø</h3>
+    <h3>Plæygirl</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/DeepSeaDiver2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Deep Sea Diver</h3>
+    <h3>Billboard Heart</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Pyramids2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Pyramids</h3>
+    <h3>Pythagoras</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Bibi2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Bibi</h3>
+    <h3>Eve: Romance</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Nmixx2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Nmixx</h3>
+    <h3>Fe304: Forward</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/SayMyName2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Say My Name</h3>
+    <h3>My Name Is...</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/TheMarsVolta2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Mars Volta</h3>
+    <h3>Lucro Sucio; Los Ojos del Vacio</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Mclusky2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mclusky</h3>
+    <h3>The World Is Still Here and So Are We</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Got72025.jpg" alt=""/></div><div class="album-text">
+    <h3>Got7</h3>
+    <h3>Winter Heptagon</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Weatherday2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Weatherday</h3>
+    <h3>Hornet Disaster</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/D4vd2025.jpg" alt=""/></div><div class="album-text">
+    <h3>D4vd</h3>
+    <h3>Withered</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Itzy2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Itzy</h3>
+    <h3>Girls Will Be Girls</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/YoungPosse2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Young Posse</h3>
+    <h3>Cold</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/IU2025.jpg" alt=""/></div><div class="album-text">
+    <h3>IU</h3>
+    <h3>A Flower Bookmark 3</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/ThrowingMuses2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Throwing Muses</h3>
+    <h3>Moonlight Concessions</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Mogwai2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mogwai</h3>
+    <h3>The Bad Fire</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/MHuncho2025.jpg" alt=""/></div><div class="album-text">
+    <h3>M Huncho</h3>
+    <h3>U2opia</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/NCTWish2025.jpg" alt=""/></div><div class="album-text">
+    <h3>NCT Wish</h3>
+    <h3>Poppop</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/PartyNextDoor2025.jpg" alt=""/></div><div class="album-text">
+    <h3>PartyNextDoor / Drake</h3>
+    <h3>$ome $exy $ongs 4 U</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Garbage2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Garbage</h3>
+    <h3>Let All That We Imagine Be the Light</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/NoahCyrus2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Noah Cyrus</h3>
+    <h3>I Want My Loved Ones to Go With Me</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/TySegall2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ty Segall</h3>
+    <h3>Possession</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/TeddySwims2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Teddy Swims</h3>
+    <h3>I've Tried Everything but Therapy (Part 2)</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¾</div>
+  <div class="album-cover"><img src="Images/2025/Midwxst2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Midwxst</h3>
+    <h3>Archangel</h3>
+    <h3>1¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Architects2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Architects</h3>
+    <h3>The Sky, the Earth & All Between</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Seventeen2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Seventeen</h3>
+    <h3>Happy Burstday</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/NineVicious2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Nine Vicious</h3>
+    <h3>Tumblr Music</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/GigiPerez2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Gigi Perez</h3>
+    <h3>At the Beach, in Every Life</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/JulienBaker2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Julien Baker / Torres</h3>
+    <h3>Send a Prayer My Way</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/OllyAlexander2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Olly Alexander</h3>
+    <h3>Polari</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/JordanAdetunji2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jordan Adetunji</h3>
+    <h3>A Jaguar’s Dream</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/FiftyFifty2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Fifty Fifty</h3>
+    <h3>Day & Night</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Yeji2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Yeji</h3>
+    <h3>Air</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Ive2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ive</h3>
+    <h3>Ive Empathy</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/ReScene2025.jpg" alt=""/></div><div class="album-text">
+    <h3>ReScene</h3>
+    <h3>Glow Up</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/JacksonWang2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jackson Wang</h3>
+    <h3>Magicman 2</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Andre30002025.jpg" alt=""/></div><div class="album-text">
+    <h3>André 3000</h3>
+    <h3>7 Piano Sketches</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Nav2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Nav</h3>
+    <h3>OMW2 Rexdale</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/TheSherlocks2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Sherlocks</h3>
+    <h3>Everything Must Make Sense!</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Mark2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Mark</h3>
+    <h3>The Firstfruit</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/HotWax2025.jpg" alt=""/></div><div class="album-text">
+    <h3>HotWax</h3>
+    <h3>Hot Shock</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/BeachBunny2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Beach Bunny</h3>
+    <h3>Tunnel Vision</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/RichardSallis2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Richard Sallis</h3>
+    <h3>Felix</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/Fletcher2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Fletcher</h3>
+    <h3>Would You Still Love Me If You Really Knew Me?</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/TheKooks2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Kooks</h3>
+    <h3>Never/Know</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/TheDarkness2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Darkness</h3>
+    <h3>Dreams on Toast</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/TheWombats2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Wombats</h3>
+    <h3>Oh! The Ocean</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/JoeBonamassa2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Joe Bonamassa</h3>
+    <h3>Breakthrough</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1½</div>
+  <div class="album-cover"><img src="Images/2025/TWS2025.jpg" alt=""/></div><div class="album-text">
+    <h3>TWS</h3>
+    <h3>Try With Us</h3>
+    <h3>1½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/AlessiRose2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Alessi Rose</h3>
+    <h3>For Your Validation</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/ImAMonster2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Im A Monster</h3>
+    <h3>Museum Music</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/CentralCee2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Central Cee</h3>
+    <h3>Can’t Rush Greatness</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Gelo2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Gelo</h3>
+    <h3>League of My Own</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Inhaler2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Inhaler</h3>
+    <h3>Open Wide</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/WeAreScientists2025.jpg" alt=""/></div><div class="album-text">
+    <h3>We Are Scientists</h3>
+    <h3>Qualifying Miles</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/ChungHa2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Chung Ha</h3>
+    <h3>Alivio</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/ReneeRapp2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Reneé Rapp</h3>
+    <h3>Bite Me</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Enhypen2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Enhypen</h3>
+    <h3>Desire: Unleash</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/FranzFerdinand2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Franz Ferdinand</h3>
+    <h3>The Human Fear</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Sparks2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Sparks</h3>
+    <h3>Mad!</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Joost2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Joost</h3>
+    <h3>Unity</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/GhostMountain2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ghost Mountain</h3>
+    <h3>October Country</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Stereophonics2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Stereophonics</h3>
+    <h3>Make 'Em Laugh, Make 'Em Cry, Make 'Em Wait</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Deerhoof2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Deerhoof</h3>
+    <h3>Noble and Godlike in Ruin</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Nemzzz2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Nemzzz</h3>
+    <h3>Rent's Due</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/TheAmazons2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Amazons</h3>
+    <h3>21st Century Fiction</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/KyleFalconer2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Kyle Falconer</h3>
+    <h3>The One I Love the Most</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/AlessiaCara2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Alessia Cara</h3>
+    <h3>Love & Hyperbole</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/PalefaceSwiss2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Paleface Swiss</h3>
+    <h3>Cursed</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Gunna2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Gunna</h3>
+    <h3>The Last Wun</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/KreptAndKonan2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Krept & Konan</h3>
+    <h3>Young Kingz II</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/SelenaGomez2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Selena Gomez / Benny Blanco</h3>
+    <h3>I Said I Love You First</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/YungLean2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Yung Lean</h3>
+    <h3>Jonatan</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/CoheedAndCambria2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Coheed and Cambria</h3>
+    <h3>Vaxis: Act III: The Father of Make Believe</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/RuPaul2025.jpg" alt=""/></div><div class="album-text">
+    <h3>RuPaul</h3>
+    <h3>Good Luck and Don't F%k It Up</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Ifeye2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ifeye</h3>
+    <h3>Erlu Blue</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/SixSex2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Six Sex</h3>
+    <h3>X-sex</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Horsegiirl2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Horsegiirl</h3>
+    <h3>V.I.P. = Very Important Pony</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/IzayaTiji2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Izaya Tiji</h3>
+    <h3>O2A</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/UAU2025.jpg" alt=""/></div><div class="album-text">
+    <h3>UAU</h3>
+    <h3>Playlist #You Are You</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Bloodywood2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Bloodywood</h3>
+    <h3>Nu Delhi</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/DeathInVegas2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Death in Vegas</h3>
+    <h3>Death Mask</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/TheSlowReadersClub2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Slow Readers Club</h3>
+    <h3>Out of a Dream</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/TheLathums2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Lathums</h3>
+    <h3>Matter Does Not Define</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1¼</div>
+  <div class="album-cover"><img src="Images/2025/Furytto2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Furytto</h3>
+    <h3>Pirma Dalis</h3>
+    <h3>1¼</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/OsamaSon2025.jpg" alt=""/></div><div class="album-text">
+    <h3>OsamaSon</h3>
+    <h3>Jump Out</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/LilBaby2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Baby</h3>
+    <h3>Wham</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Davido2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Davido</h3>
+    <h3>5ive</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Skaiwater2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Skaiwater</h3>
+    <h3>#mia</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/BensonBoone2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Benson Boone</h3>
+    <h3>American Heart</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Jisoo2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jisoo</h3>
+    <h3>Amortage</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Jennie2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jennie</h3>
+    <h3>Ruby</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/LilWayne2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Wayne</h3>
+    <h3>Tha Carter VI</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/JuliaMichaels2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Julia Michaels</h3>
+    <h3>Second Self</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/RingoStarr2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ringo Starr</h3>
+    <h3>Look Up</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/BradleySimpson2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Bradley Simpson</h3>
+    <h3>The Panic Years</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Yola2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Yola</h3>
+    <h3>My Way</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/JessieMurph2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jessie Murph</h3>
+    <h3>Sex Hysteria</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/EltonJohn2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Elton John / Brandi Carlile</h3>
+    <h3>Who Believes in Angels?</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Lisa2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lisa</h3>
+    <h3>Alter Ego</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/AndyBell2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Andy Bell</h3>
+    <h3>Ten Crowns</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/BillyIdol2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Billy Idol</h3>
+    <h3>Dream Into It</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/MachineHead2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Machine Head</h3>
+    <h3>Unatoned</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Bush2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Bush</h3>
+    <h3>I Beat Loneliness</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/IannDior2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Iann Dior</h3>
+    <h3>Nothings Ever Good Enough II</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/KingCombs2025.jpg" alt=""/></div><div class="album-text">
+    <h3>King Combs / Kanye West</h3>
+    <h3>Never Stop</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/SkunkAnansie2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Skunk Anansie</h3>
+    <h3>The Painful Truth</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/DeaconBlue2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Deacon Blue</h3>
+    <h3>The Great Western Road</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/TheWildhearts2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Wildhearts</h3>
+    <h3>Satanic Rites of The Wildhearts</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/GDragon2025.jpg" alt=""/></div><div class="album-text">
+    <h3>G-Dragon</h3>
+    <h3>Übermensch</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Smokedope20162025.jpg" alt=""/></div><div class="album-text">
+    <h3>Smokedope2016</h3>
+    <h3>The Peak</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/RickyWarwick2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ricky Warwick</h3>
+    <h3>Blood Ties</h3>
+    <h3>1</h3>
+      </div></div></li>  
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Fromis92025.jpg" alt=""/></div><div class="album-text">
+    <h3>Fromis_9</h3>
+    <h3>From Our 20's</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Jasmine4t2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jasmine.4.t</h3>
+    <h3>You Are the Morning</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/F1TheAlbum2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Various (Atlantic)</h3>
+    <h3>F1 the Album</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/LAGuns2025.jpg" alt=""/></div><div class="album-text">
+    <h3>L.A. Guns</h3>
+    <h3>Leopard Skin</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/TheTingTings2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Ting Tings</h3>
+    <h3>Home</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/ToryLanez2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Tory Lanez</h3>
+    <h3>Peterson</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/LilDurk2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Durk</h3>
+    <h3>Deep Thoughts</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/GEazy2025.jpg" alt=""/></div><div class="album-text">
+    <h3>G-Eazy</h3>
+    <h3>Helium</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/ThoseDamnCrows2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Those Damn Crows</h3>
+    <h3>God Shaped Hole</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/JethroTull2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Jethro Tull</h3>
+    <h3>Curious Ruminant</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Tyga2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Tyga</h3>
+    <h3>NSFW</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Buckcherry2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Buckcherry</h3>
+    <h3>Roar Like Thunder</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/PaulinaPaukstaityte2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Paulina Paukštaitytė</h3>
+    <h3>Ego Kalba</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/WhenRiversMeet2025.jpg" alt=""/></div><div class="album-text">
+    <h3>When Rivers Meet</h3>
+    <h3>Addicted to You</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/TheVapors2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Vapors</h3>
+    <h3>Wasp in a Jar</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/KimWilde2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Kim Wilde</h3>
+    <h3>Closer</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">1</div>
+  <div class="album-cover"><img src="Images/2025/Tremonti2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Tremonti</h3>
+    <h3>The End Will Show Us How</h3>
+    <h3>1</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/MorganWallen2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Morgan Wallen</h3>
+    <h3>I'm the Problem</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/DaveBlunts2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Dave Blunts</h3>
+    <h3>You Can't Say That</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/LambriniGirls2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lambrini Girls</h3>
+    <h3>Who Let the Dogs Out</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/Flume2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Flume / Jpegmafia</h3>
+    <h3>We Live in a Society</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/Meovv2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Meovv</h3>
+    <h3>My Eyes Open VVide</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/Plaqueboymax2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Plaqueboymax</h3>
+    <h3>Five Forever</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/Katseye2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Katseye</h3>
+    <h3>Beautiful Chaos</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/ShinseiKamattechan2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Shinsei Kamattechan</h3>
+    <h3>Danchi Thesis</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/DamianoDavid2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Damiano David</h3>
+    <h3>Funny Little Fears</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/KiiiKiii2025.jpg" alt=""/></div><div class="album-text">
+    <h3>KiiiKiii</h3>
+    <h3>Uncut Gem</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/AlexWarren2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Alex Warren</h3>
+    <h3>You'll Be Alright, Kid</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/Block332025.jpg" alt=""/></div><div class="album-text">
+    <h3>Block 33</h3>
+    <h3>The Promised Land</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/JamesArthur2025.jpg" alt=""/></div><div class="album-text">
+    <h3>James Arthur</h3>
+    <h3>Pisces</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/DreamTheater2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Dream Theater</h3>
+    <h3>Parasomnia</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/TheLotteryWinners2025.jpg" alt=""/></div><div class="album-text">
+    <h3>The Lottery Winners</h3>
+    <h3>Koko</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0¾</div>
+  <div class="album-cover"><img src="Images/2025/CannibalOx2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Cannibal Ox</h3>
+    <h3>Aireplane</h3>
+    <h3>0¾</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0½</div>
+  <div class="album-cover"><img src="Images/2025/JoynerLucas2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Joyner Lucas</h3>
+    <h3>ADHD 2</h3>
+    <h3>0½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0½</div>
+  <div class="album-cover"><img src="Images/2025/WillSmith2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Will Smith</h3>
+    <h3>Based on a True Story</h3>
+    <h3>0½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0½</div>
+  <div class="album-cover"><img src="Images/2025/Rory2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Røry</h3>
+    <h3>Restoration</h3>
+    <h3>0½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0½</div>
+  <div class="album-cover"><img src="Images/2025/LilSkies2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Lil Skies</h3>
+    <h3>The Evolution of the Rose</h3>
+    <h3>0½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0½</div>
+  <div class="album-cover"><img src="Images/2025/AdaRook2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Ada Rook</h3>
+    <h3>Unkillable Angel</h3>
+    <h3>0½</h3>
+      </div></div></li>
+<li><div class="album"><div class="album-rating">0</div>
+  <div class="album-cover"><img src="Images/2025/SelfEsteem2025.jpg" alt=""/></div><div class="album-text">
+    <h3>Self Esteem</h3>
+    <h3>A Complicated Woman</h3>
+    <h3>0</h3>
+      </div></div></li>
+
+</ol>
+</main>
+
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <p id="modal-text"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 In Authority. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const modalText = document.getElementById('modal-text');
+    const modalClose = document.getElementById('modal-close');
+
+    // Show modal with review & rating on album click
+    document.querySelectorAll('.album').forEach(album => {
+      album.addEventListener('click', () => {
+        const review = album.getAttribute('data-review');
+        const rating = album.getAttribute('data-rating');
+        modalText.innerHTML = `<p>${review}</p><p><strong>Rating:</strong> ${rating}</p>`;
+        modal.classList.add('active');
+      });
+    });
+
+    // Close modal on clicking close button or outside modal-content
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
